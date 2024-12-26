@@ -12,7 +12,7 @@ class ParsingActivator:
         del headers["x-guest-token"]
         import requests
 
-        r = requests.post(site.activation["url"], headers=headers)
+        r = requests.post(site.activation["url"], headers=headers, timeout=60)
         logger.info(r)
         j = r.json()
         guest_token = j[site.activation["src"]]
@@ -25,7 +25,7 @@ class ParsingActivator:
             del headers["Authorization"]
         import requests
 
-        r = requests.get(site.activation["url"], headers=headers)
+        r = requests.get(site.activation["url"], headers=headers, timeout=60)
         logger.debug(f"Vimeo viewer activation: {json.dumps(r.json(), indent=4)}")
         jwt_token = r.json()["jwt"]
         site.headers["Authorization"] = "jwt " + jwt_token
@@ -37,7 +37,7 @@ class ParsingActivator:
             del headers["Authorization"]
         import requests
 
-        r = requests.get(site.activation["url"])
+        r = requests.get(site.activation["url"], timeout=60)
         bearer_token = r.json()["accessToken"]
         site.headers["authorization"] = f"Bearer {bearer_token}"
 
