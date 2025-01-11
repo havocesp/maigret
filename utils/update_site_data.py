@@ -4,7 +4,6 @@ This module generates the listing of supported sites in file `SITES.md`
 and pretty prints file with sites data.
 """
 import sys
-import requests
 import logging
 import threading
 import xml.etree.ElementTree as ET
@@ -12,6 +11,7 @@ from datetime import datetime, timezone
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from maigret.maigret import MaigretDatabase
+from security import safe_requests
 
 RANKS = {str(i):str(i) for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 50, 100, 500]}
 RANKS.update({
@@ -31,7 +31,7 @@ def get_rank(domain_to_query, site, print_errors=True):
     with SEMAPHORE:
         # Retrieve ranking data via alexa API
         url = f"http://data.alexa.com/data?cli=10&url={domain_to_query}"
-        xml_data = requests.get(url).text
+        xml_data = safe_requests.get(url).text
         root = ET.fromstring(xml_data)
 
         try:

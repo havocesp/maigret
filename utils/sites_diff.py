@@ -1,10 +1,10 @@
 import sys
 import difflib
-import requests
+from security import safe_requests
 
 
-a = requests.get(sys.argv[1]).text
-b = requests.get(sys.argv[2]).text
+a = safe_requests.get(sys.argv[1]).text
+b = safe_requests.get(sys.argv[2]).text
 
 
 tokens_a = set(a.split('"'))
