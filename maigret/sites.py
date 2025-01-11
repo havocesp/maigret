@@ -6,6 +6,7 @@ import sys
 from typing import Optional, List, Dict, Any, Tuple
 
 from .utils import CaseConverter, URLMatcher, is_country_tag
+from security import safe_requests
 
 
 class MaigretEngine:
@@ -458,10 +459,8 @@ class MaigretDatabase:
         if not is_url_valid:
             raise FileNotFoundError(f"Invalid data file URL '{url}'.")
 
-        import requests
-
         try:
-            response = requests.get(url=url)
+            response = safe_requests.get(url=url)
         except Exception as error:
             raise FileNotFoundError(
                 f"Problem while attempting to access "
