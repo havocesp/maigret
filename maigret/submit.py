@@ -17,6 +17,7 @@ from .sites import MaigretDatabase, MaigretEngine, MaigretSite
 from .utils import get_random_user_agent
 from .checking import site_self_check
 from .utils import get_match_ratio, generate_random_username
+import defusedxml.ElementTree
 
 
 class CloudflareSession:
@@ -80,11 +81,10 @@ class Submitter:
     @staticmethod
     def get_alexa_rank(site_url_main):
         import requests
-        import xml.etree.ElementTree as ElementTree
 
         url = f"http://data.alexa.com/data?cli=10&url={site_url_main}"
         xml_data = requests.get(url).text
-        root = ElementTree.fromstring(xml_data)
+        root = defusedxml.ElementTree.fromstring(xml_data)
         alexa_rank = 0
 
         try:
