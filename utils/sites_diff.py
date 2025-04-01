@@ -3,8 +3,8 @@ import difflib
 import requests
 
 
-a = requests.get(sys.argv[1]).text
-b = requests.get(sys.argv[2]).text
+a = requests.get(sys.argv[1], timeout=60).text
+b = requests.get(sys.argv[2], timeout=60).text
 
 
 tokens_a = set(a.split('"'))

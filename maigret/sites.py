@@ -461,7 +461,7 @@ class MaigretDatabase:
         import requests
 
         try:
-            response = requests.get(url=url)
+            response = requests.get(url=url, timeout=60)
         except Exception as error:
             raise FileNotFoundError(
                 f"Problem while attempting to access "
