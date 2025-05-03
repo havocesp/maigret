@@ -2,7 +2,6 @@
 import ast
 import asyncio
 import logging
-import random
 import re
 import ssl
 import sys
@@ -16,6 +15,7 @@ from aiohttp import ClientSession, TCPConnector, http_exceptions
 from aiohttp.client_exceptions import ClientConnectorError, ServerDisconnectedError
 from python_socks import _errors as proxy_errors
 from socid_extractor import extract
+import secrets
 
 try:
     from mock import Mock
@@ -421,7 +421,7 @@ def make_site_result(
         logger.error("No URL for site %s", site.name)
 
     if kwargs.get('retry') and hasattr(site, "mirrors"):
-        site.url_main = random.choice(site.mirrors)
+        site.url_main = secrets.choice(site.mirrors)
         logger.info(f"Use {site.url_main} as a main url of site {site}")
 
     # URL of user on site (if it exists)
