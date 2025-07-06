@@ -83,7 +83,7 @@ class Submitter:
         import xml.etree.ElementTree as ElementTree
 
         url = f"http://data.alexa.com/data?cli=10&url={site_url_main}"
-        xml_data = requests.get(url).text
+        xml_data = requests.get(url, timeout=60).text
         root = ElementTree.fromstring(xml_data)
         alexa_rank = 0
 

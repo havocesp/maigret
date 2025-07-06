@@ -31,7 +31,7 @@ def get_rank(domain_to_query, site, print_errors=True):
     with SEMAPHORE:
         # Retrieve ranking data via alexa API
         url = f"http://data.alexa.com/data?cli=10&url={domain_to_query}"
-        xml_data = requests.get(url).text
+        xml_data = requests.get(url, timeout=60).text
         root = ET.fromstring(xml_data)
 
         try:
