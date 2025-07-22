@@ -5,11 +5,11 @@ import re
 
 import alive_progress
 from mock import Mock
-import requests
 
 from maigret.maigret import *
 from maigret.result import MaigretCheckStatus
 from maigret.sites import MaigretSite
+from security import safe_requests
 
 URL_RE = re.compile(r"https?://(www\.)?")
 TIMEOUT = 200
@@ -208,7 +208,7 @@ if __name__ == '__main__':
         }
 
         try:
-            r = requests.get(main_page_url, timeout=5)
+            r = safe_requests.get(main_page_url, timeout=5)
         except:
             r = None
             pass

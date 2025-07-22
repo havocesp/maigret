@@ -3,6 +3,7 @@ from http.cookiejar import MozillaCookieJar
 from http.cookies import Morsel
 
 from aiohttp import CookieJar
+from security import safe_requests
 
 
 class ParsingActivator:
@@ -23,9 +24,8 @@ class ParsingActivator:
         headers = dict(site.headers)
         if "Authorization" in headers:
             del headers["Authorization"]
-        import requests
 
-        r = requests.get(site.activation["url"], headers=headers)
+        r = safe_requests.get(site.activation["url"], headers=headers)
         logger.debug(f"Vimeo viewer activation: {json.dumps(r.json(), indent=4)}")
         jwt_token = r.json()["jwt"]
         site.headers["Authorization"] = "jwt " + jwt_token
@@ -35,9 +35,8 @@ class ParsingActivator:
         headers = dict(site.headers)
         if "Authorization" in headers:
             del headers["Authorization"]
-        import requests
 
-        r = requests.get(site.activation["url"])
+        r = safe_requests.get(site.activation["url"])
         bearer_token = r.json()["accessToken"]
         site.headers["authorization"] = f"Bearer {bearer_token}"
 
