@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-import random
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 from maigret.maigret import MaigretDatabase
 from maigret.submit import Submitter
+import secrets
 
 
 def update_tags(site):
@@ -48,9 +48,9 @@ if __name__ == '__main__':
     while True:
         if args.name:
             sites = list(db.ranked_sites_dict(names=[args.name]).values())
-            site = random.choice(sites)
+            site = secrets.choice(sites)
         else:
-            site = random.choice(db.sites)
+            site = secrets.choice(db.sites)
 
         if site.engine == 'uCoz':
             continue
