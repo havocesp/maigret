@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import json
-import random
 import re
 
 import alive_progress
@@ -10,6 +9,7 @@ import requests
 from maigret.maigret import *
 from maigret.result import MaigretCheckStatus
 from maigret.sites import MaigretSite
+import secrets
 
 URL_RE = re.compile(r"https?://(www\.)?")
 TIMEOUT = 200
@@ -175,7 +175,7 @@ if __name__ == '__main__':
     with open(args.urls_file, 'r') as urls_file:
         urls = urls_file.read().splitlines()
         if args.random:
-            random.shuffle(urls)
+            secrets.SystemRandom().shuffle(urls)
         urls = urls[:args.top]
 
     raw_maigret_data = json.dumps({site.name: site.json for site in sites_subset})

@@ -2,9 +2,9 @@
 import ast
 import difflib
 import re
-import random
 import string
 from typing import Any
+import secrets
 
 
 DEFAULT_USER_AGENTS = [
@@ -104,7 +104,7 @@ def get_dict_ascii_tree(items, prepend="", new_line=True):
 
 
 def get_random_user_agent():
-    return random.choice(DEFAULT_USER_AGENTS)
+    return secrets.choice(DEFAULT_USER_AGENTS)
 
 
 def get_match_ratio(base_strs: list):
@@ -123,4 +123,4 @@ def get_match_ratio(base_strs: list):
 
 
 def generate_random_username():
-    return ''.join(random.choices(string.ascii_lowercase, k=10))
+    return ''.join(secrets.SystemRandom().choices(string.ascii_lowercase, k=10))
